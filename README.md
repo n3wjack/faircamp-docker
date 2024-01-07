@@ -21,15 +21,13 @@ The easiest option is to install Docker Desktop, which is free and has a simple 
 
 1. Install [Docker Desktop](https://www.docker.com/get-started/).
 2. From this repository, get the `run-faircamp.cmd` script and put it in a folder somewhere, e.g. `/faircamp`.
-   
-   Right-click [this link to the script](https://github.com/n3wjack/faircamp-docker/raw/main/run-faircamp.cmd), and save the file in your preferred working folder.
-
+   - Right-click [this link to the script](https://github.com/n3wjack/faircamp-docker/raw/main/run-faircamp.cmd), and save the file in your preferred working folder.
 3. Windows will not trust this file by default, because it was downloaded over the internet. To be able to use it, you'll need to remove this protection.
    You do this by:
    - Right-clicking the file.
    - Select **Properties**
-   - In the first tab, check the box **Unblock** box.
-   - Finish by clicking the OK button.
+   - In the first tab, check the **Unblock** box.
+   - Finish by clicking the **OK** button.
 3. Create a subfolder with the name `data` in the folder where you stored the script. This is where your music will go.
 4. Put the files Faircamp needs to build your catalog in this data folder (your mp3's, etc.) See the [getting started guide on the Faircamp site](https://simonrepp.com/faircamp/manual/getting-started.html) for more info.
    Basically, you can get started with a folder per album ("My Greatest Hits") and putting your mp3s in there.
