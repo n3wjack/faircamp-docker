@@ -69,3 +69,7 @@ The Docker container used to run Faircamp can be found at [n3wjack/faircamp](htt
 
 The image is quite big, due to the dependencies it needs (ffmpeg and libvips42). Still, it runs pretty fast once downloaded.
 
+## License
+
+This project is licensed under the [MIT license](https://github.com/n3wjack/faircamp-docker/blob/main/LICENSE).
+
