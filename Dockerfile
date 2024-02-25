@@ -8,16 +8,16 @@ RUN mkdir /fc
 WORKDIR /fc
 
 RUN apt-get install curl -y
-RUN curl -O https://simonrepp.com/faircamp/packages/faircamp_0.11.0-1+deb12_amd64.deb
+RUN curl https://simonrepp.com/faircamp/packages/faircamp_0.13.0-1+deb12_amd64.deb -o faircamp.deb
 
 FROM base as final
 
-COPY --from=build /fc/faircamp_0.11.0-1+deb12_amd64.deb .
+COPY --from=build /fc/faircamp.deb .
 
 # Install Faircamp & dependencies
 RUN apt-get install ffmpeg libvips42 -y
-RUN dpkg --install faircamp_0.11.0-1+deb12_amd64.deb
-RUN rm faircamp_0.11.0-1+deb12_amd64.deb
+RUN dpkg --install faircamp.deb
+RUN rm faircamp.deb
 
 # Setup the working folder.
 RUN mkdir /data
