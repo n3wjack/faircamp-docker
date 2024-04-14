@@ -8,7 +8,7 @@ RUN mkdir /fc
 WORKDIR /fc
 
 RUN apt-get install curl -y
-RUN curl https://simonrepp.com/faircamp/packages/faircamp_0.13.0-1+deb12_amd64.deb -o faircamp.deb
+RUN curl https://simonrepp.com/faircamp/packages/faircamp_0.14.0-1+deb12_amd64.deb -o faircamp.deb
 
 FROM base as final
 
