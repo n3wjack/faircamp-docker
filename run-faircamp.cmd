@@ -21,6 +21,9 @@ if NOT EXIST "%cd%\data" (
 
 :build
 
+docker run -ti --rm n3wjack/faircamp --version
+echo.
+
 echo Building the Faircamp site in %cd%\data\.faircamp_build ...
 echo.
 docker run -ti -v %cd%\data:/data --rm n3wjack/faircamp
