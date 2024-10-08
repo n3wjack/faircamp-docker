@@ -54,6 +54,15 @@ You can use the Docker container to build on any other platform capable of runni
 
     docker run -ti -v <path to your data folder>:/data --rm n3wjack/faircamp <extra arguments>
 
+### Running a specific version of Faircamp
+
+It's possible to run a specific version of Faircamp by passing in an extra parameter to the `run-faircamp.cmd` script.
+This version must be an existing Docker tag, which match the Faircamp version in the container. You can see the [available tags here](https://hub.docker.com/repository/docker/n3wjack/faircamp/tags).
+
+For example, to run version 15 of Faircamp:
+
+      .\run-faircamp.cmd 15
+
 ## Build the container yourself 
 
 Using this project, you can also build the container yourself.
