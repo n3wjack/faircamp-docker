@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 FROM debian:bookworm-slim as base
 RUN apt-get update
+# Install Faircamp dependencies
+RUN apt-get install ffmpeg libvips42 -y 
 
 FROM base as build
 
@@ -8,14 +10,13 @@ RUN mkdir /fc
 WORKDIR /fc
 
 RUN apt-get install curl -y
-RUN curl https://simonrepp.com/faircamp/packages/faircamp_0.17.0-1+deb12_amd64.deb -o faircamp.deb
+RUN curl https://simonrepp.com/faircamp/packages/faircamp_0.18.1-1+deb12_amd64.deb -o faircamp.deb
 
 FROM base as final
 
 COPY --from=build /fc/faircamp.deb .
 
 # Install Faircamp & dependencies
-RUN apt-get install ffmpeg libvips42 -y 
 RUN dpkg --install faircamp.deb
 RUN rm faircamp.deb
 
