@@ -48,6 +48,22 @@ You can find these 2 versions in your data folder:
 - `.faircamp_build` : the version to upload to your site.
 - `.faircamp_build_browsable` : the local browsable version.
 
+### Linux
+
+The Linux script is slightly different, and will properly match your UID and GID. It is recommended if your UID and GID is not 1000:1000 to build the image yourself.
+
+Install Docker in the usual way for your distribution and run:
+
+```bash
+./build-container.sh # this will build the container
+```
+
+To run the script, you may then run:
+
+```bash
+./run-faircamp
+```
+
 ### Other platforms
 
 You can use the Docker container to build on any other platform capable of running a Docker container. Any extra arguments you pass in when running the container, will be passed on to the Faircamp executable, so you don't need the .cmd script provided for Windows. You can use it to see the command line statement used, which is something like this:

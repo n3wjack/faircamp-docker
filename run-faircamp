@@ -1,0 +1,28 @@
+#!/bin/bash
+# This version of the script generates HTML pages for a webserver, because we're running
+# it on Linux, damn!
+errout() {
+  _err=$1
+  shift 1
+  echo $@
+  exit $_err
+}
+
+MUSIC_DIR="$HOME/faircamp/music"
+TARGET_DIR="$HOME/faircamp/site"
+CACHE_DIR="$HOME/faircamp/cache"
+DOCKER_IMAGE=$(head -n 1 .target_image)
+_container_name="faircamp-dkr"
+
+docker stop $_container_name > /dev/null || true
+docker rm $_container_name > /dev/null || true
+
+test -d "$MUSIC_DIR" || errout 2 "Directory $MUSIC_DIR that should contain your music does not exist. See the Faircamp manual for more information."
+test -d "$TARGET_DIR" || errout 2 "Directory $TARGET_DIR that will contain your website does not exist. See the Faircamp manual for more information."
+test -d "$CACHE_DIR" || errout 2 "Directory $CACHE_DIR that will contain the faircamp cache does not exist. See the Faircamp manual for more information."
+
+docker run --name faircamp-dkr --entrypoint=/usr/bin/sleep -v $CACHE_DIR:/cache -v $TARGET_DIR:/web -v $MUSIC_DIR:/music -d $DOCKER_IMAGE 1800 > /dev/null
+echo "Checking faircamp version"
+docker exec $_container_name faircamp --version
+echo "Building site in $TARGET_DIR"
+docker exec $_container_name faircamp --build-dir /web --catalog-dir /music --cache-dir /cache

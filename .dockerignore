@@ -35,3 +35,5 @@
 LICENSE
 README.md
 *.cmd
+*.sh
+*

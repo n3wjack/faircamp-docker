@@ -1,28 +1,17 @@
 # syntax=docker/dockerfile:1
-FROM debian:bookworm-slim as base
-RUN apt-get update
-# Install Faircamp dependencies
-RUN apt-get install ffmpeg libvips42 -y 
-
-FROM base as build
-
-RUN mkdir /fc
-WORKDIR /fc
-
-RUN apt-get install curl -y
-RUN curl https://simonrepp.com/faircamp/packages/faircamp_0.20.1-1+deb12_amd64.deb -o faircamp.deb
-
-FROM base as final
-
-COPY --from=build /fc/faircamp.deb .
-
-# Install Faircamp & dependencies
-RUN dpkg --install faircamp.deb
-RUN rm faircamp.deb
-
-# Setup the working folder.
-RUN mkdir /data
+FROM bitnami/minideb:bookworm
+RUN install_packages curl ffmpeg libvips42
+ARG FAIRCAMP_VERSION="0.20.1-1+deb12"
+RUN curl \
+  -Lvk https://simonrepp.com/faircamp/packages/faircamp_${FAIRCAMP_VERSION}_amd64.deb \
+  -o /tmp/faircamp.deb; \
+  dpkg -i /tmp/faircamp.deb; install_packages
+SHELL ["/usr/bin/bash", "-c"]
+ARG PROPER_UID=1000 PROPER_GID=1000
+RUN groupadd -g $PROPER_GID faircamp
+RUN useradd -u $PROPER_UID -g faircamp faircamp
+RUN mkdir /music /web /data /cache
 WORKDIR /data
-
-# Run Faircamp. Any arguments passed to docker will be passed to Faircamp.
+RUN chown faircamp:faircamp /music /web /data /cache
+USER faircamp
 ENTRYPOINT [ "faircamp"]
