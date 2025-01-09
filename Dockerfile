@@ -6,7 +6,7 @@ RUN install_packages ffmpeg libvips42 curl
 RUN mkdir /fc
 WORKDIR /fc
 
-RUN curl -Lvk https://simonrepp.com/faircamp/packages/faircamp_1.0.0-1+deb12_amd64.deb -o faircamp.deb
+RUN curl -Lvk https://simonrepp.com/faircamp/packages/faircamp_1.1.0-1+deb12_amd64.deb -o faircamp.deb
 
 # Install Faircamp & dependencies
 RUN dpkg --install /fc/faircamp.deb
