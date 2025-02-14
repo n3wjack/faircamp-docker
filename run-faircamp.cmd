@@ -1,5 +1,46 @@
 @echo off
 
+SET SINGLERUN=0
+SET TAG=latest
+
+:PROCESSPARAM
+
+if "%1" == "/?" goto :USAGE
+if "%1" == "-h" goto :USAGE
+if "%1" == "--help" goto :USAGE
+
+if "%1" == "-singlerun" (
+    set SINGLERUN=1
+    shift
+    goto :PROCESSPARAM
+)
+
+if "%1" == "" (
+    if "%TAG%" == "" ( 
+        set TAG=latest
+    )
+    goto :RUN
+) else (
+    set TAG=%1
+    shift
+    goto :PROCESSPARAM
+)
+
+:USAGE
+echo Usage:
+echo.
+echo  run-faircamp.cmd [version] [-singlerun]
+echo.
+echo     version: (optional) the Faircamp version to run.
+echo     -singlerun: (optional) run only once (not in a loop)
+echo.
+echo E.g.
+echo     run-faircamp.cmd 1.1
+echo.
+goto:EOF
+
+:RUN
+
 :: Disable the Docker scout messages for the pull command etc.
 SET DOCKER_CLI_HINTS=false
 
@@ -22,16 +63,9 @@ if NOT EXIST "%cd%\data" (
     goto :EOF
 )
 
+echo Using Faircamp version %TAG%
 
-if  "%1"=="" (
-    echo Using latest version.
-    SET TAG=latest
-) else (
-    SET TAG=%1
-    echo Using specified version %1
-   )
-
-:pull
+:PULL
 
 :: Check if the image has been downloaded already.
 docker images n3wjack/faircamp:%TAG% | findstr "n3wjack/faircamp" > nul
@@ -55,7 +89,7 @@ if NOT %ERRORLEVEL%==0 (
     goto :EOF
 )
 
-:build
+:BUILD
 
 docker run -ti --rm n3wjack/faircamp:%TAG% --version
 echo.
@@ -79,8 +113,13 @@ echo.
 
 start %cd%/data/.faircamp_build_browsable/index.html
 
+if %SINGLERUN% == 1 (
+    goto :EOF
+)
+
 set /p response=Do you want to do another build, or stop? [y/n] : 
 
 echo.
-if /I %response%==y goto :build
+if /I %response%==y goto :BUILD
+
 

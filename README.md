@@ -59,9 +59,22 @@ You can use the Docker container to build on any other platform capable of runni
 It's possible to run a specific version of Faircamp by passing in an extra parameter to the `run-faircamp.cmd` script.
 This version must be an existing Docker tag, which match the Faircamp version in the container. You can see the [available tags here](https://hub.docker.com/repository/docker/n3wjack/faircamp/tags).
 
-For example, to run version 15 of Faircamp:
+For example, to run version 1.1 of Faircamp:
 
-      .\run-faircamp.cmd 15
+      .\run-faircamp.cmd 1.1
+
+### Run only once
+
+By default the `run-faircamp.cmd` script will run in a loop, until you tell it to stop.
+The idea is that you might be tweaking your Faircamp site configuration, while you have the command running in a shell continuously.
+
+If you only want it to run once, you can pass the command line argument `-singlerun`, like this:
+
+      .\run-faircamp.cmd -singlerun
+
+You can also combine this with a specific version numbern as mentioned earlier.
+
+      .\run-faircamp.cmd 1.1 -singlerun
 
 ## Build the container yourself 
 
@@ -69,7 +82,8 @@ Using this project, you can also build the container yourself.
 Here's how to do that:
 
 1. Clone this repository using `git clone https://github.com/n3wjack/faircamp-docker`.
-2. Run the `build-container.cmd` script to build the container, or peek inside the script to get the command line statement to build the container.
+2. Run the `build-container.cmd <version>` script to build the container, or peek inside the script to get the command line statement to build the container.
+   You have to pass in the Faircamp version as the first argument to build a container for that version.
 3. Sit back and watch Docker do its thing.
 4. You can now run the locally built container, using the same `run-faircamp.cmd` script, or by manually running it using the Docker CLI.
 
