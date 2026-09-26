@@ -51,7 +51,7 @@ echo ^|    ___^|   _   ^|   ^|   ^| ^|^| ^|       ^|   _   ^|       ^|    _  ^|
 echo ^|   ^|___^|  ^|_^|  ^|   ^|   ^|_^|^|_^|      _^|  ^|_^|  ^|       ^|   ^|_^| ^|
 echo ^|    ___^|       ^|   ^|    __  ^|     ^| ^|       ^|       ^|    ___^|
 echo ^|   ^|   ^|   _   ^|   ^|   ^|  ^| ^|     ^|_^|   _   ^| ^|^|_^|^| ^|   ^|
-echo ^|___^|   ^|__^| ^|__^|___^|___^|  ^|_^|_______^|__^| ^|__^|_^|   ^|_^|___^|
+echo ^|___^|   ^|__^| ^|__^|___^|___^|  ^|_^|_______^|__^| ^|__^|_^|   ^|_^|___^| v2
 echo  -- in docker -- https://github.com/n3wjack/faircamp-docker
 echo.
 
@@ -96,22 +96,14 @@ echo.
 
 echo Building the Faircamp site in %cd%\data\.faircamp_build ...
 echo.
-docker run -ti -v %cd%\data:/data --rm n3wjack/faircamp:%TAG%
-
-echo.
-echo Building a browsable version in %cd%\data\.faircamp_build_browsable ...
-echo.
-docker run -ti -v %cd%\data:/data --rm n3wjack/faircamp:%TAG% --build-dir .faircamp_build_browsable --no-clean-urls
+docker run -ti -v %cd%\data:/data --rm n3wjack/faircamp:%TAG% build
 
 echo.
 echo You can find your Faircamp site to upload in:
 echo - %cd%\data\.faircamp_build
 echo.
-echo A browseable version can be found in:
-echo - %cd%\data\.faircamp_build_browsable
-echo.
 
-start %cd%/data/.faircamp_build_browsable/index.html
+start %cd%/data/.faircamp_build/index.html
 
 if %SINGLERUN% == 1 (
     goto :EOF

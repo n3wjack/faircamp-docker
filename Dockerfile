@@ -8,7 +8,7 @@ WORKDIR /fc
 
 ARG VERSION
 
-RUN curl -Lvk https://simonrepp.com/faircamp/packages/faircamp_$VERSION-1+deb12_amd64.deb -o faircamp.deb
+RUN curl -Lvk https://faircamp.org/packages/faircamp_cli_$VERSION-1+deb12_amd64.deb -o faircamp.deb
 
 # Install Faircamp & dependencies
 RUN dpkg --install /fc/faircamp.deb
